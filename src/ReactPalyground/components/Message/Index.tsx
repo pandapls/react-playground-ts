@@ -8,6 +8,7 @@ export interface MessageProps {
 const Index: FC<MessageProps> = (props) => {
   const { type, content } = props;
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     setVisible(!!content)
   }, [content])

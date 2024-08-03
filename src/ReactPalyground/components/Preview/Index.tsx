@@ -1,7 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { PlaygroundContext } from "../PlaygroundContext"
 import CompilerWorker from "./compiler.worker?worker";
-// import Editor from "../CodeEditor/Editor";
 import Message from '../Message/Index'
 import iframeRaw from './iframe.html?raw';
 import { IMPORT_MAP_FILE_NAME } from "../../files";
@@ -24,7 +23,6 @@ const Preview = () => {
         if (data.type === COMPILER_WORKER_SYM) {
           setCompiledCode(data.data);
         } else {
-          console.log('error', data)
         }
       })
     }
@@ -53,25 +51,24 @@ const Preview = () => {
   }, [files[IMPORT_MAP_FILE_NAME].value, compiledCode])
 
   const [error, setError] = useState('');
-  const handleMessage = (msg: MessageData) => {
+  const handleMessage = useCallback((msg: MessageData) => {
     const { type, message } = msg.data;
-    if (type === 'ERROR') {
-      setError(message)
+    if (type === 'ERROR' && message) {
+      setError(message);
     }
-  }
+  }, []);
 
   useEffect(() => {
     window.addEventListener('message', handleMessage)
     return () => {
       window.removeEventListener('message', handleMessage)
     }
-  })
+  }, [handleMessage])
 
   return (
     <div style={{ height: '100%' }}>
       <iframe src={iframeUrl} style={{ width: '100%', height: '100%', padding: 0, border: 'none' }} />
       <Message type="error" content={error} />
-      {/* <Editor file={{ name: 'app.js', value: compiledCode, language: 'javascript' }} /> */}
     </div>
   )
 }
