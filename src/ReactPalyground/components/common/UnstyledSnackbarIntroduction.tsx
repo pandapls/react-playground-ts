@@ -1,10 +1,9 @@
 import { Transition } from 'react-transition-group';
 import { styled } from '@mui/system';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import CloseIcon from '@mui/icons-material/Close';
 import { Snackbar } from '@mui/base/Snackbar';
 import { SnackbarCloseReason } from '@mui/base/useSnackbar';
-import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { PropsWithChildren, useRef, useState } from 'react';
 interface UnstyledSnackbarIntroductionProps {
   isOpen: boolean
   setOpen: (open: boolean) => void

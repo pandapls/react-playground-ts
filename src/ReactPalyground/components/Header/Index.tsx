@@ -1,7 +1,7 @@
 import { useContext, useMemo, useState } from 'react';
 import logoSvg from '../../../icons/logo.svg'
 import styles from './index.module.scss';
-import { createTheme, ThemeProvider, CssBaseline, IconButton, Alert } from '@mui/material';
+import { createTheme, ThemeProvider, CssBaseline, IconButton } from '@mui/material';
 import { PlaygroundContext } from '../PlaygroundContext';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
@@ -28,10 +28,6 @@ const Header = () => {
   const handleShareLink = () => {
     copy(window.location.href);
     setOpen(true);
-  }
-  const handleClose = () => {
-    // if ()
-    setOpen(false);
   }
   return (
     <div className={styles.header}>
